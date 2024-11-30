@@ -1,0 +1,34 @@
+[project]
+name = "ansible-{{ project_type }}-{{ project_name }}"
+version = "0.1.0"
+description = "{{ project_description.removesuffix('.') }}"
+readme = "README.md"
+requires-python = ">={{ python_version }}"
+dependencies = [
+    "ansible>=11.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "ansible-lint>=24.10.0; platform_system != 'Windows'",
+    "mypy>=1.13.0",
+    "ruff>=0.8.1",
+]
+
+[tool.mypy]
+strict = true
+
+[tool.ruff.lint]
+extend-select= [
+    "I",  # isort
+]
+unfixable = [
+    "F401",  # unused imports
+]
+
+[tool.uv]
+# https://github.com/astral-sh/uv/issues/6127
+environments = [
+    "platform_system == 'Windows'",
+    "platform_system != 'Windows'",
+]

@@ -1,0 +1,14 @@
+[defaults]
+inventory=inventory
+ansible_managed=This file is managed by Ansible. All changes will be lost.
+roles_path=roles
+vault_password_file=vault/password.py
+interpreter_python=auto_silent
+{% if become %}
+
+[privilege_escalation]
+become=True
+{% endif %}
+
+[connection]
+pipelining=True
