@@ -1,10 +1,12 @@
 ci: ansible-lint ruff mypy
+{% if project_type == "playbook" %}
 
 ansible-playbook *args="":
   uv run ansible-playbook playbook.yml {{args}}
+{% endif %}
 
 ansible-lint:
-  CI=1 uv run ansible-lint
+  {% if project_type == "playbook" %}CI=1 {% endif %}uv run ansible-lint
 
 ruff: ruff-check ruff-format
 

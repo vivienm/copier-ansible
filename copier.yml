@@ -20,7 +20,9 @@ project_type:
   help: "Project type"
   type: "str"
   choices:
+  - "collection"
   - "playbook"
+  default: "playbook"
 
 project_description:
   help: "Project description"
@@ -40,6 +42,15 @@ author_name:
   validator: >
     {%- if not author_name -%}
     You must provide your full name.
+    {%- endif -%}
+
+author_email:
+  help: "Your email"
+  type: "str"
+  placeholder: "john@doe.tld"
+  validator: >
+    {%- if not author_email | regex_search('^[^\s@]+@[^\s@]+\.[^\s@]+$') -%}
+    You must provide a valid email address.
     {%- endif -%}
 
 license:
@@ -102,7 +113,28 @@ repo_url:
     https://github.com/{{ github_account }}/{{ repo_name }}
     {%- endif -%}
 
-become:
+collection_namespace:
+  when: "{{ project_type == 'collection' }}"
+  help: "Collection namespace"
+  type: "str"
+  default: "{{ github_account | replace('-', '_') }}"
+  placeholder: "jdoe"
+  validator: >
+    {%- if not collection_namespace | regex_search('^[a-zA-Z][a-zA-Z0-9_]*$') -%}
+    You must provide a valid collection namespace.
+    {%- endif -%}
+
+collection_name:
+  when: "{{ project_type == 'collection' }}"
+  help: "Collection name"
+  type: "str"
+  default: "{{ project_slug | replace('-', '_') }}"
+  validator: >
+    {%- if not collection_name | regex_search('^[a-zA-Z][a-zA-Z0-9_]*$') -%}
+    You must provide a valid collection name.
+    {%- endif -%}
+
+playbook_become:
   when: "{{ project_type == 'playbook' }}"
   help: "Enable privilege escalation"
   type: "bool"
@@ -110,3 +142,7 @@ become:
 
 python_version:
   default: "3.13"
+
+ansible_core_version:
+  when: "{{ project_type == 'collection' }}"
+  default: "2.18.0"

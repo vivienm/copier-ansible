@@ -5,7 +5,7 @@ collections_path=.ansible/collections
 roles_path=roles
 vault_password_file=vault/password.py
 interpreter_python=auto_silent
-{% if become %}
+{% if ansible_become %}
 
 [privilege_escalation]
 become=True

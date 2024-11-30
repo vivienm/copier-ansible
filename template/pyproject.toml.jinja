@@ -1,15 +1,21 @@
 [project]
-name = "ansible-{{ project_type }}-{{ project_name }}"
+name = "ansible-{{ project_type }}-{{ project_slug }}"
 version = "0.1.0"
 description = "{{ project_description.removesuffix('.') }}"
 readme = "README.md"
-requires-python = ">={{ python_version }}"
-dependencies = [
-    "ansible>=11.0.0",
+authors = [
+    { name = "{{ author_name }}", email = "{{ author_email }}" },
 ]
+license = { text = "{% if license == 'Proprietary' %}LicenseRef-Proprietary{% else %}{{ license }}{% endif %}" }
+requires-python = ">={{ python_version }}"
+dependencies = []
 
 [dependency-groups]
 dev = [
+    "ansible>=11.0.0",
+{% if project_type == "collection" %}
+    "ansible-core~={{ ansible_core_version }}",
+{% endif %}
     "ansible-lint>=24.10.0; platform_system != 'Windows'",
     "mypy>=1.13.0",
     "ruff>=0.8.1",
