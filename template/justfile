@@ -1,7 +1,7 @@
 ci: ansible-lint ruff mypy
 
 ansible-playbook *args="":
-  uv run ansible-playbook playbook.yaml {{args}}
+  uv run ansible-playbook playbook.yml {{args}}
 
 ansible-lint:
   CI=1 uv run ansible-lint
