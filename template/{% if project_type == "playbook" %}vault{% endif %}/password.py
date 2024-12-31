@@ -6,6 +6,7 @@ import secrets
 import subprocess
 import sys
 from pathlib import Path
+from typing import Iterable
 
 CI = os.environ.get("CI", "0") != "0"
 
@@ -13,19 +14,17 @@ SCRIPT_DIR = Path(__file__).parent.relative_to(Path.cwd())
 PASSWORD_PATH = SCRIPT_DIR / "password.asc"
 
 
-def init_password() -> None:
+def init_password(recipients: Iterable[str]) -> None:
     """Create a new password file."""
     if PASSWORD_PATH.exists():
         print(f"Password file already exists: {PASSWORD_PATH}", file=sys.stderr)
         sys.exit(1)
     password = secrets.token_hex()
+    command = ["gpg", "--encrypt", "--armor", "--output", str(PASSWORD_PATH)]
+    for recipient in recipients:
+        command.extend(["--recipient", recipient])
     try:
-        subprocess.run(
-            ["gpg", "--encrypt", "--armor", "--output", str(PASSWORD_PATH)],
-            input=password,
-            text=True,
-            check=True,
-        )
+        subprocess.run(command, input=password, text=True, check=True)
     except subprocess.CalledProcessError as e:
         print(e, file=sys.stderr)
         sys.exit(e.returncode)
@@ -62,8 +61,9 @@ def main() -> None:
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
         "--init",
-        action="store_true",
-        help="initialize the password file",
+        nargs="*",
+        metavar="RECIPIENT",
+        help="initialize the password file for the given recipients",
     )
     group.add_argument(
         "--dummy",
@@ -72,9 +72,8 @@ def main() -> None:
         default=CI,
     )
     args = parser.parse_args()
-
-    if args.init:
-        init_password()
+    if args.init is not None:
+        init_password(args.init)
     else:
         password = get_password(dummy=args.dummy)
         print(password)
