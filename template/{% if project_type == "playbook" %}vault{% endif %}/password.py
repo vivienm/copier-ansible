@@ -8,7 +8,14 @@ import sys
 from pathlib import Path
 from typing import Iterable
 
-CI = os.environ.get("CI", "0") != "0"
+DUMMY = os.environ.get("ANSIBLE_VAULT_DUMMY", "0").lower() in (
+    "y",
+    "yes",
+    "t",
+    "true",
+    "on",
+    "1",
+)
 
 SCRIPT_DIR = Path(__file__).parent.relative_to(Path.cwd())
 PASSWORD_PATH = SCRIPT_DIR / "password.asc"
@@ -69,7 +76,7 @@ def main() -> None:
         "--dummy",
         action="store_true",
         help="return a dummy password",
-        default=CI,
+        default=DUMMY,
     )
     args = parser.parse_args()
     if args.init is not None:
