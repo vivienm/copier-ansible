@@ -100,7 +100,7 @@ repo_name:
   when: "{{ hosting_platform != 'none' }}"
   help: "Name of the{% if hosting_platform == 'github' %} GitHub{% endif %} repository"
   type: "str"
-  default: "ansible-{{ project-type }}-{{ project_slug }}"
+  default: "ansible-{{ project_type }}-{{ project_slug }}"
   validator: >
     {%- if not repo_name -%}
     You must provide a repository name.
