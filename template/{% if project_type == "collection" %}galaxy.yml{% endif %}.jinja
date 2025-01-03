@@ -5,8 +5,10 @@ readme: "README.md"
 authors:
   - "{{ author_name }} <{{ author_email }}>"
 description: "{{ project_description.removesuffix('.') }}"
+{% if license != "Proprietary" %}
 license:
-  - "{% if license == 'Proprietary' %}LicenseRef-Proprietary{% else %}{{ license }}{% endif %}"
+  - "{{ license }}"
+{% endif %}
 dependencies: {}
 {% if repo_url %}
 repository: "{{ repo_url }}"
