@@ -3,7 +3,7 @@ name: "{{ collection_name }}"
 version: "0.1.0"
 readme: "README.md"
 authors:
-  - "{{ author_name }} <{{ author_email }}>"
+  - "{{ user_name }} <{{ user_email }}>"
 description: "{{ project_description.removesuffix('.') }}"
 {% if license != "Proprietary" %}
 license:
@@ -12,7 +12,7 @@ license:
 dependencies: {}
 {% if repo_url %}
 repository: "{{ repo_url }}"
-{% if hosting_platform == "github" %}
+{% if forge == "github" %}
 issues: "{{ repo_url }}/issues"
 {% endif %}
 {% endif %}
