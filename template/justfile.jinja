@@ -2,7 +2,7 @@ ci: ansible-lint ruff mypy
 {% if project_type == "playbook" %}
 
 ansible-playbook *args="":
-  uv run ansible-playbook playbook.yml {{args}}
+  uv run ansible-playbook playbook.yml {{ '{{' }}args{{ '}}' }}
 {% endif %}
 
 ansible-lint:
