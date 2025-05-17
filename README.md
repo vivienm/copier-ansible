@@ -8,7 +8,7 @@ To install Copier, please follow the installation instructions [here](https://co
 
 Then, to create a new project based on this template, run:
 
-```shell
+```bash
 copier copy 'https://github.com/vivienm/copier-ansible' path/to/your/project
 ```
 
@@ -16,7 +16,7 @@ and fill in the form.
 
 Go to the project directory, create the password file (only for playbooks) and run the tests:
 
-```shell
+```bash
 vault/password.py --init
 just ci
 ```
@@ -25,6 +25,6 @@ The project is ready!
 
 To update an existing project based on this template, run:
 
-```shell
+```bash
 copier update --skip-answered
 ```

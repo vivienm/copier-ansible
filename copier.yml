@@ -20,8 +20,8 @@ project_type:
   help: "Project type"
   type: "str"
   choices:
-  - "collection"
-  - "playbook"
+    - "collection"
+    - "playbook"
   default: "playbook"
 
 project_description:
@@ -57,8 +57,8 @@ license:
   help: "Project license"
   type: "str"
   choices:
-  - "MIT"
-  - "Proprietary"
+    - "MIT"
+    - "Proprietary"
   default: "Proprietary"
 
 copyright_holder:
@@ -83,8 +83,8 @@ forge:
   help: "Code hosting platform for the project"
   type: "str"
   choices:
-  - "none"
-  - "github"
+    - "none"
+    - "github"
 
 github_user:
   when: "{{ forge == 'github' }}"
