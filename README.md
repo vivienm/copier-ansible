@@ -1,6 +1,6 @@
 # Ansible project template
 
-An opinionated [Copier](https://copier.readthedocs.io/en/stable/) template for Ansible playbooks.
+An opinionated [Copier](https://copier.readthedocs.io/en/stable/) template for [Ansible](https://docs.ansible.com/) projects.
 
 ## Quickstart
 
