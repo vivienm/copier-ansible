@@ -8,6 +8,6 @@ forge: github
 github_repo: copier-ansible
 github_user: vivienm
 license: MIT
-project_description: An opinionated Copier template for Ansible playbooks.
+project_description: An opinionated Copier template for Ansible projects.
 project_name: Ansible project template
 user_name: Vivien Maisonneuve
